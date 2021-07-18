@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>{% block title %}{% endblock %} - Issue Tracker</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="{% block description %}{% endblock %}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+
+<body>
+    <header>
+        <nav>
+            <h1>Issue Tracker</h1>
+            <!-- Create issue, locate issue, 
+                assuming logins, (ie later)
+                login, logout, register, my issues -->
+            <ul>
+                <li><a href="{{ url_for('bugtracker.index') }}">Current Issues</a></li>
+                <li><a href="{{ url_for('bugtracker.create') }}">Create</a></li>
+                <li><a href="{{ url_for('bugtracker.search') }}">Search</a></li>
+            </ul>
+            <!-- Not yet, stick to the plan!
+            {% if g.user %}
+            {% else %}
+            {% endif %}
+            -->
+        </nav>
+    </header>
+
+    <article class="content">
+        <header>{% block header %}{% endblock %}</header>
+        {% for message in get_flashed_message() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+
+        {% block content %}{% endblock %}
+    </article>
+
+    <footer></footer>
+</body>
+
+</html>
