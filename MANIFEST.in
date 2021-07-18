@@ -1,0 +1,4 @@
+include tracker/schema.sql
+graft tracker/static
+graft tracker/templates
+global-exclude *.pyc
