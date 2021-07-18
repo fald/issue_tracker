@@ -20,8 +20,8 @@
                 login, logout, register, my issues -->
             <ul>
                 <li><a href="{{ url_for('bugtracker.index') }}">Current Issues</a></li>
-                <li><a href="{{ url_for('bugtracker.create') }}">Create</a></li>
-                <li><a href="{{ url_for('bugtracker.search') }}">Search</a></li>
+                <li><a href="{{ url_for('bugtracker.index') }}">Create</a></li>
+                <li><a href="{{ url_for('bugtracker.index') }}">Search</a></li>
             </ul>
             <!-- Not yet, stick to the plan!
             {% if g.user %}
@@ -33,10 +33,11 @@
 
     <article class="content">
         <header>{% block header %}{% endblock %}</header>
-        {% for message in get_flashed_message() %}
+        <!--
+        { for message in get_flashed_message() %}
             <div class="flash">{{ message }}</div>
-        {% endfor %}
-
+        { endfor %}
+        -->
         {% block content %}{% endblock %}
     </article>
 
