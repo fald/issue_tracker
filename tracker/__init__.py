@@ -26,4 +26,8 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
+    from . import bugtracker
+    app.register_blueprint(bugtracker.bp)
+    app.add_url_rule('/', endpoint='index')
+
     return app
