@@ -3,7 +3,7 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from tracker.db import get_db
+from tracker.db import get_db, init_db
 
 
 bp = Blueprint('bugtracker', __name__)
@@ -30,7 +30,6 @@ def index():
         'LEFT JOIN user u2 ON i.target_id = u2.id '
         'ORDER BY created DESC'
     ).fetchall()
-    
 
     # ITS PROBABLY GREAT THAT I GO BETWEEN TRACKER, BUGS, BUGTRACKER AND ISSUES RIGHT NO PROBLEMS THERE HAHAH IM THE BEST - t. Late-night me
     return render_template('/bugs/index.html', bugs=bugs)
