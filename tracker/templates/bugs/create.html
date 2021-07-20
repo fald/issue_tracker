@@ -17,7 +17,7 @@
         <label for="bug_title">Bug Title</label> <!-- It just occurred to me how silly a 'bug title' is. -->
         <input name="bug_title" id="bug_title" value="{{ request.form.bug_title }}" required>
         <label for="bug_description">Description</label>"
-        <textarea name="bug_description" id="bug_description">{{ request.form.bug_description }}</textarea>
+        <textarea name="bug_description" id="bug_description" required>{{ request.form.bug_description }}</textarea>
         <label for="creator_name">Added By</label>
         <input name="creator_name" id="creator_name" value="{{ request.form.creator_name }}"> <!-- not required, has default -->
         <label for="assignee">Assign To</label>

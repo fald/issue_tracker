@@ -38,6 +38,51 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
-        pass
+        error = None
+        project_name = request.form['project_name']     
+        bug_title = request.form['bug_title']
+        bug_description = request.form['bug_description']   
+        creator_name = request.form['creator_name']
+        assignee = request.form['assignee']
+        status = request.form['status']
+        priority = request.form['priority']
+
+        if not project_name:
+            error = "You need to attach this issue to a project."
+        elif not bug_title:
+            error = "You need a title for your bug - a brief description is enough."
+        elif not bug_description:
+            error = "You need to describe the bug in detail."
+        
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+
+            # Check if project is in DB already - if not, insert it.
+            project_id = db.execute(
+                # TODO: Account for capitalization differences and such.
+                'SELECT id FROM project WHERE project.name = (?,)', (project_name,)
+            ).fetchone()
+
+            if project_id:
+                project_id = project_id[0]
+            else:
+                # db = get_db() # Each cursos is only valid for one call (barring executescript)
+                db.execute(
+                    'INSERT INTO project (name) VALUES (?,)',
+                    (project_name.lower(),)
+                )
+                db.commit()
+                project_id = db.lastrowid
+
+            # Check if creator (defaults to fald) + assignee (if provided) are in the DB - if not, insert.
+            
+
+            # Get the ID# from the users + project to insert into table
+
+            # Insert present values into the tablle
+        
+            pass
 
     return render_template('/bugs/create.html')
