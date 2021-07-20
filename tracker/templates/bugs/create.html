@@ -24,13 +24,13 @@
         <input name="assignee" id="assignee" value="{{ request.form.assignee }}">
         <label for="status">Status</label>
         <select name="status" id="status">
-            <option value="open">Open</option>
+            <option value="open" selected>Open</option>
             <option value="assigned">In Progress</option>
             <option value="closed">Closed</option>
         </select>
         <label for="priority">Priority</label>
         <select name="priority" id="priority">
-            <option value="low">Low</option>
+            <option value="low" selected>Low</option>
             <option value="med">Medium</option>
             <option value="high">High</option>
         </select>
