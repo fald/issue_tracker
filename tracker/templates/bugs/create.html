@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block header %}
+    <h1>{% block title %}New Bug{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <!-- project_id, project_name, bug_title, bug_body, creator_id, creator_name,
+            target_id, target_name, status, priority, created_on, last_modified -->
+        <label for="project_name">Project</label>
+        <input name="project_name" id="project_name" value="{{ request.form.project_name }}" required>
+        <label for="bug_title">Bug Title</label> <!-- It just occurred to me how silly a 'bug title' is. -->
+        <input name="bug_title" id="bug_title" value="{{ request.form.bug_title }}" required>
+        <label for="bug_description">Description</label>"
+        <textarea name="bug_description" id="bug_description">{{ request.form.bug_description }}</textarea>
+        <label for="creator_name">Added By</label>
+        <input name="creator_name" id="creator_name" value="{{ request.form.creator_name }}"> <!-- not required, has default -->
+        <label for="assignee">Assign To</label>
+        <input name="assignee" id="assignee" value="{{ request.form.assignee }}">
+        <label for="status">Status</label>
+        <select name="status" id="status">
+            <option value="open">Open</option>
+            <option value="assigned">In Progress</option>
+            <option value="closed">Closed</option>
+        </select>
+        <label for="priority">Priority</label>
+        <select name="priority" id="priority">
+            <option value="low">Low</option>
+            <option value="med">Medium</option>
+            <option value="high">High</option>
+        </select>
+    </form>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

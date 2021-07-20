@@ -33,3 +33,11 @@ def index():
 
     # ITS PROBABLY GREAT THAT I GO BETWEEN TRACKER, BUGS, BUGTRACKER AND ISSUES RIGHT NO PROBLEMS THERE HAHAH IM THE BEST - t. Late-night me
     return render_template('/bugs/index.html', bugs=bugs)
+
+
+@bp.route('/create', methods=('GET', 'POST'))
+def create():
+    if request.method == 'POST':
+        pass
+
+    return render_template('/bugs/create.html')
