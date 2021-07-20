@@ -15,6 +15,6 @@ def test_index(client):
         b'Bug List',
         b'New',
     ]
-
+    
     for element in page_elements:
         assert element in response.data

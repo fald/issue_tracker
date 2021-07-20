@@ -22,7 +22,7 @@ def test_init_db(runner, monkeypatch):
 
 
 def test_get_close_db(app):
-    with app.app_context:
+    with app.app_context():
         db = get_db()
         assert db is get_db()
     
