@@ -77,7 +77,7 @@ def create():
                 project_id = db.lastrowid
 
             # Check if creator (defaults to fald) + assignee (if provided) are in the DB - if not, insert.
-            
+
 
             # Get the ID# from the users + project to insert into table
 
@@ -86,3 +86,13 @@ def create():
             pass
 
     return render_template('/bugs/create.html')
+
+
+@bp.route('/search')
+def search():
+    return render_template('/bugs/search.html')
+
+
+@bp.route('/update')
+def update():
+    return render_template('/bugs/update.html')
