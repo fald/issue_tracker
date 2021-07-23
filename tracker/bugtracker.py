@@ -3,7 +3,7 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from tracker.db import get_db, init_db
+from tracker.db import get_db, init_db, get_id_or_create
 
 
 bp = Blueprint('bugtracker', __name__)
@@ -59,31 +59,30 @@ def create():
         else:
             db = get_db()
 
-            # Check if project is in DB already - if not, insert it.
-            project_id = db.execute(
-                # TODO: Account for capitalization differences and such.
-                'SELECT id FROM project WHERE project.name = (?,)', (project_name,)
-            ).fetchone()
+            # TODO: Remove once no longer necessary
+            creator_name = creator_name or 'fald'
+            assignee = assignee or 'fald'
+            project_id = get_id_or_create('project', 'name', project_name)            
+            assignee_id = get_id_or_create('user', 'username', assignee)
+            creator_id = get_id_or_create('user', 'username', creator_name)
 
-            if project_id:
-                project_id = project_id[0]
-            else:
-                # db = get_db() # Each cursos is only valid for one call (barring executescript)
-                db.execute(
-                    'INSERT INTO project (name) VALUES (?,)',
-                    (project_name.lower(),)
-                )
-                db.commit()
-                project_id = db.lastrowid
+            # # TODO: Remove debug.
+            # print('\n', assignee, file=sys.stderr)
+            # return redirect(url_for('bugtracker.index'))
 
-            # Check if creator (defaults to fald) + assignee (if provided) are in the DB - if not, insert.
+            # Insert present values into the table
+            # TODO: Hmm - defaults for empty str?
+            # Maybe not relevant once auth is in - creator = whoevers logged in
+            # Assignee can probably be blank until its been edited in, or claimed?
+            # That's probably a bad idea.
+            db.execute(
+                'INSERT INTO issue (project_id, title, body, creator_id, target_id, status, priority) '
+                'VALUES (?, ?, ?, ?, ?, ?, ?)',
+                (project_id, bug_title, bug_description, creator_id, assignee_id, status, priority)
+            )
+            db.commit()
 
-
-            # Get the ID# from the users + project to insert into table
-
-            # Insert present values into the tablle
-        
-            pass
+            return redirect(url_for('bugtracker.index'))
 
     return render_template('/bugs/create.html')
 
