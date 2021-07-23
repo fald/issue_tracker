@@ -6,43 +6,51 @@ The list of all bugs/issues across all projects.
 
 {% block header %}
     <h1>{% block title %}Bug List{% endblock %}</h1>
+    <!--
     <a href="{{ url_for('bugtracker.create') }}">
         Add bug
     </a>
+    -->
 {% endblock %}
 
 {% block content %}
-    {% for bug in bugs %}
-        <article class="bug">
-            <header>
-                <div>
-                    <h1>
-                        <i>#{{ bug.id }}</i>: {{ bug.title }} in {{ bug.project }}
-                    </h1>
-                    <div class='details'>
-                        <p>Priority: {{ bug.priority }}</p>
-                        <p>Status: {{ bug.status }}</p>
-                    </div>
-                    
-                    <a href="{{ url_for('bugtracker.update') }}">Edit</a>
-                </div>
-            </header>
-            <p class="body">
-                {{ bug.body }}
-            </p>
-            <footer>
-                <div>
-                    <p>Submitted by: {{ bug.creator }}</p>
-                    <p>on {{ bug.created }}</p>
-                    <p>Assigned to: {{ bug.target }}</p>
-                </div>
-                <div>
-                    <p>Last modified: {{ bug.last_modified }}</p>
-                </div>
-            </footer>
+    {% if bugs|length < 1 %}
+        <article class="empty">
+            <p>There are no bugs being tracked right now.</p>
         </article>
-        {% if not loop.last %}
-            <hr />
-        {% endif %}
-    {% endfor %}
+    {% else %}
+        {% for bug in bugs %}
+            <article class="bug">
+                <header>
+                    <div>
+                        <h1>
+                            <i>#{{ bug.id }}</i>: {{ bug.title }} in {{ bug.project }}
+                        </h1>
+                        <div class='details'>
+                            <p>Priority: {{ bug.priority }}</p>
+                            <p>Status: {{ bug.status }}</p>
+                        </div>
+                        
+                        <a href="{{ url_for('bugtracker.update') }}">Edit</a>
+                    </div>
+                </header>
+                <p class="body">
+                    {{ bug.body }}
+                </p>
+                <footer>
+                    <div>
+                        <p>Submitted by: {{ bug.creator }}</p>
+                        <p>on {{ bug.created }}</p>
+                        <p>Assigned to: {{ bug.target }}</p>
+                    </div>
+                    <div>
+                        <p>Last modified: {{ bug.last_modified }}</p>
+                    </div>
+                </footer>
+            </article>
+            {% if not loop.last %}
+                <hr />
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
