@@ -40,6 +40,7 @@ def init_app(app):
     app.cli.add_command(init_db_command)
 
 
+# TODO: These should probably specifically be in bugtracker.py?
 # There is definitely probably a better way to do this, but given I'm doing this
 # as a band-aid measure to avoid doing auth work + separate project creation, it'll
 # have to do.
@@ -77,3 +78,55 @@ def get_id_or_create(table, col, val):
 
     # Return the ID
     return id
+
+
+def get_issue(id):
+    db = get_db()
+    issue = db.execute(
+        'SELECT '
+        '   i.id AS id,'
+        '   i.title,'
+        '   i.body,'
+        '   i.status,'
+        '   i.priority,'
+        '   i.created,'
+        '   i.last_modified,'
+        '   p.name AS project,'
+        '   u1.username AS creator,'
+        '   u2.username AS target '
+        'FROM issue i '
+        'LEFT JOIN project p ON i.project_id = p.id '
+        'LEFT JOIN user u1 ON i.creator_id = u1.id '
+        'LEFT JOIN user u2 ON i.target_id = u2.id '
+        'WHERE i.id=? ',
+        (id,)
+    ).fetchone()
+
+    if issue is None:
+        abort(404, f'Issue {id} does not exist.')
+    
+    return issue
+
+
+def get_all_issues():
+    db = get_db()
+    issues = db.execute(
+        'SELECT '
+        '   i.id AS id,'
+        '   i.title,'
+        '   i.body,'
+        '   i.status,'
+        '   i.priority,'
+        '   i.created,'
+        '   i.last_modified,'
+        '   p.name AS project,'
+        '   u1.username AS creator,'
+        '   u2.username AS target '
+        'FROM issue i '
+        'LEFT JOIN project p ON i.project_id = p.id '
+        'LEFT JOIN user u1 ON i.creator_id = u1.id '
+        'LEFT JOIN user u2 ON i.target_id = u2.id '
+        'ORDER BY created DESC'
+    ).fetchall()
+
+    return issues

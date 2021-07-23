@@ -31,7 +31,7 @@ The list of all bugs/issues across all projects.
                             <p>Status: {{ bug.status }}</p>
                         </div>
                         
-                        <a href="{{ url_for('bugtracker.update') }}">Edit</a>
+                        <a href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
                     </div>
                 </header>
                 <p class="body">

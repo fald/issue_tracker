@@ -3,7 +3,7 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from tracker.db import get_db, init_db, get_id_or_create
+from tracker.db import get_db, init_db, get_id_or_create, get_issue, get_all_issues
 
 
 bp = Blueprint('bugtracker', __name__)
@@ -12,24 +12,7 @@ bp = Blueprint('bugtracker', __name__)
 @bp.route('/')
 def index():
     db = get_db()
-    bugs = db.execute(
-        'SELECT '
-        '   i.id AS id,'
-        '   i.title,'
-        '   i.body,'
-        '   i.status,'
-        '   i.priority,'
-        '   i.created,'
-        '   i.last_modified,'
-        '   p.name AS project,'
-        '   u1.username AS creator,'
-        '   u2.username AS target '
-        'FROM issue i '
-        'LEFT JOIN project p ON i.project_id = p.id '
-        'LEFT JOIN user u1 ON i.creator_id = u1.id '
-        'LEFT JOIN user u2 ON i.target_id = u2.id '
-        'ORDER BY created DESC'
-    ).fetchall()
+    bugs = get_all_issues()
 
     # ITS PROBABLY GREAT THAT I GO BETWEEN TRACKER, BUGS, BUGTRACKER AND ISSUES RIGHT NO PROBLEMS THERE HAHAH IM THE BEST - t. Late-night me
     return render_template('/bugs/index.html', bugs=bugs)
@@ -66,10 +49,6 @@ def create():
             assignee_id = get_id_or_create('user', 'username', assignee)
             creator_id = get_id_or_create('user', 'username', creator_name)
 
-            # # TODO: Remove debug.
-            # print('\n', assignee, file=sys.stderr)
-            # return redirect(url_for('bugtracker.index'))
-
             # Insert present values into the table
             # TODO: Hmm - defaults for empty str?
             # Maybe not relevant once auth is in - creator = whoevers logged in
@@ -92,6 +71,13 @@ def search():
     return render_template('/bugs/search.html')
 
 
-@bp.route('/update')
-def update():
-    return render_template('/bugs/update.html')
+@bp.route('/update/<int:id>', methods=('GET', 'POST'))
+def update(id):
+    issue = get_issue(id)
+
+    return render_template('/bugs/update.html', issue=issue)
+
+
+@bp.route('/delete/<int:id>')
+def delete():
+    return redirect(url_for('bugtracker.index'))
