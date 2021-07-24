@@ -1,3 +1,5 @@
+import sys
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -78,12 +80,37 @@ def update(id):
     if request.method == "POST":
         error = None
         # parameterize post elements
+        project = request.form['project_name'] or issue['project']
+        title = request.form['bug_title'] or issue['title']
+        body = request.form['bug_description'] or issue['body']
+        # This is done because of how I have the option selection.
+        # Don't know how to show current val selected without javascript,
+        # so gotta avoid keyerrors
+        status = request.form.get('status', issue['status'])
+        priority = request.form.get('priority', issue['priority'])
+        target = request.form['assignee'] # This one can feasibly just be removed.
 
         # check element values, emptiness, errors
-
+        # Actually...just assume they're unchanged?
         # if error...
-        # otherwise, update query, then redirect to main url
+        # lol no errors to check since I defaulted values above
 
+        # otherwise, update query, then redirect to main url
+        # recall: last modified date should be updated!
+        
+        project_id = get_id_or_create('project', 'name', project)
+        target_id = get_id_or_create('user', 'username', target)
+        
+        db = get_db()
+        db.execute(
+            'UPDATE issue SET project_id=?, title=?, body=?, '
+            'targeT_id=?, status=?, priority=?, last_modified=CURRENT_TIMESTAMP '
+            ' WHERE id=?',
+            (project_id, title, body, target_id, status, priority, id)
+        )
+        db.commit()
+
+        return redirect(url_for('bugtracker.index'))
 
     return render_template('/bugs/update.html', issue=issue)
 

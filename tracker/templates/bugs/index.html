@@ -32,6 +32,9 @@ The list of all bugs/issues across all projects.
                         </div>
                         
                         <a href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                        <!-- Let's just gate this behind the Delete form on the Edit page
+                            <a href="{{ url_for('bugtracker.delete', id=bug.id) }}">Delete</a>
+                        -->
                     </div>
                 </header>
                 <p class="body">

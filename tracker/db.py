@@ -84,15 +84,16 @@ def get_issue(id):
     db = get_db()
     issue = db.execute(
         'SELECT '
-        '   i.id AS id,'
-        '   i.title,'
-        '   i.body,'
-        '   i.status,'
-        '   i.priority,'
-        '   i.created,'
-        '   i.last_modified,'
-        '   p.name AS project,'
-        '   u1.username AS creator,'
+        '   i.id AS id, '
+        '   i.title, '
+        '   i.body, '
+        '   i.status, '
+        '   i.priority, '
+        # '   i.project_id, ' # this stuff will be needed for updates.
+        '   p.name AS project, '
+        # '   i.creator_id, '
+        '   u1.username AS creator, '
+        # '   i.target_id, ' # Maybe not - need to check if it exists, so use the other function.
         '   u2.username AS target '
         'FROM issue i '
         'LEFT JOIN project p ON i.project_id = p.id '
