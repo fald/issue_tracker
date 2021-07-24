@@ -4,11 +4,89 @@
 {% endblock %}
 
 {% block header %}
-    {% block title %}
-    {% endblock %}
+    <h1>
+        {% block title %}Search{% endblock %}
+    </h1>
 {% endblock %}
 
 {% block content %}
+    <!--
+            'SELECT '
+            '   i.id AS id,'
+            '   i.title,'
+            '   i.body,'
+            '   i.status,'
+            '   i.priority,'
+            '   i.created,'
+            '   i.last_modified,'
+            '   p.name AS project,'
+            '   u1.username AS creator,'
+            '   u2.username AS target '
+            'FROM issue i '
+            'LEFT JOIN project p ON i.project_id = p.id '
+            'LEFT JOIN user u1 ON i.creator_id = u1.id '
+            'LEFT JOIN user u2 ON i.target_id = u2.id '
+            'ORDER BY created DESC'
+    -->
+    <!-- Search form -->
+    <!-- Single search box?
+        Lazy bonus - easier to handle the form, easier for user to search.
+        As of yet, still limited search, but whatever, that's not the form's fault! -->
+    <form method="GET">
+        <!--
+            TODO: Just add a magnifying glass icon at the start of the bar, yeah?
+        <label for="search_term">Search</label>
+        -->
+        <input name="search_term" id="search_term" />
+        <input type="submit" value="Search" />
+    </form>
+
+    <!-- If a search, have search results -->
+    <!-- If results|length = 0, message -->
+    <!-- If no search, just box and blank -->
+    {% if results %}
+        {% if results|length == 0 %}
+            <p class="apology">There are no search results for your query...</p>
+        {% else %}
+            {% for bug in results %}
+                <article class="bug">
+                    <header>
+                        <div>
+                            <h1>
+                                <i>#{{ bug.id }}</i>: {{ bug.title }} in {{ bug.project }}
+                            </h1>
+                            <div class='details'>
+                                <p>Priority: {{ bug.priority }}</p>
+                                <p>Status: {{ bug.status }}</p>
+                            </div>
+                            
+                            <a href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                        </div>
+                    </header>
+                    <p class="body">
+                        {{ bug.body }}
+                    </p>
+                    <footer>
+                        <div>
+                            <p>Submitted by: {{ bug.creator }}</p>
+                            <p>on {{ bug.created }}</p>
+                            <p>Assigned to: {{ bug.target }}</p>
+                        </div>
+                        <div>
+                            <p>Last modified: {{ bug.last_modified }}</p>
+                        </div>
+                    </footer>
+                </article>
+                {% if not loop.last %}
+                    <hr />
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+    {% else %}
+        {{ request.args }}
+    {% endif %}
+
 {% endblock %}
 
 {% block footer %}
