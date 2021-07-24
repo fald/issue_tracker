@@ -75,9 +75,28 @@ def search():
 def update(id):
     issue = get_issue(id)
 
+    if request.method == "POST":
+        error = None
+        # parameterize post elements
+
+        # check element values, emptiness, errors
+
+        # if error...
+        # otherwise, update query, then redirect to main url
+
+
     return render_template('/bugs/update.html', issue=issue)
 
 
-@bp.route('/delete/<int:id>')
-def delete():
+@bp.route('/delete/<int:id>', methods=('POST',))
+def delete(id):
+    # lol no error checking or auth.
+    # TODO: get on that at some point.
+    db = get_db()
+    db.execute(
+        'DELETE FROM issue WHERE id=?',
+        (id,)    
+    )
+    db.commit()
+
     return redirect(url_for('bugtracker.index'))
