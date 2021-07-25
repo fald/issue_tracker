@@ -1,18 +1,29 @@
+:root {
+    /* color scheme stuff - I still suck at colors though. */
+    --bg-color-1: #e0e0e2;
+    --bg-color-2: #7389ae;
+    --text-color-1: #b1d9d5;
+    --text-color-2: #416788;
+    --text-color-3: #333;
+    --highlight-color-1: #81d2c7;
+    --highlight-color-2: #b5bad0;
+}
+
 html {
     font-family: sans-serif;
     padding: 1rem;
-    background: rgb(107, 107, 107);
+    background: var(--bg-color-1);
 }
 
 body {
     max-width: 80%;
     margin: 0 auto;
-    background: rgb(165, 159, 201);
+    background: var(--bg-color-2);
     padding: 1rem;
 }
 
 nav {
-    background: rgb(211, 211, 211);
+    background: var(--highlight-color-2);
     display: flex;
     align-items: center;
     padding: 0 0.5rem;
@@ -21,6 +32,7 @@ nav {
 nav h1 {
     flex: auto;
     margin: 0;
+    color: var(--text-color-2);
 }
 
 nav ul {
@@ -34,5 +46,90 @@ nav ul li a {
     display: block;
     padding: 0.5rem;
     text-decoration: none;
-    color: rgb(50, 50, 50);
+    color: var(--text-color-2);
+}
+
+.flash {
+    margin: 1em 0;
+    padding: 1em;
+    background: var(--bg-color-1);
+    border: 1px solid var(--text-color-3);
+}
+
+.content {
+    padding: 0 1rem 1rem;
+    display: flex;
+}
+
+.content > header {
+    border-bottom: 1px solid var(--highlight-color-2);
+    color: var(--text-color-3);
+    display: flex;
+    align-items: flex-end;
+}
+
+.content > header h1 {
+    flex: auto;
+    margin: 1rem 0 0.25rem 0;
+    padding: 1rem;
+}
+
+/*
+.bugs {
+    max-width: 50%;
+    border: 1px solid rgb(199, 196, 0);
+}
+*/
+
+.bug > header {
+    display: flex;
+    align-items: flex-end;
+    font-size: 0.85em;
+}
+
+.bug > header > div {
+    flex: auto;
+}
+
+.bug > header h1 {
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+
+.details {
+    border: 1px solid white;
+}
+
+.priority-low {
+    color: lightblue;
+}
+
+.priority-med {
+    color: yellow;
+}
+
+.priority-high {
+    color: red;
+}
+
+.status-open {
+    color: red;
+}
+
+.status-assigned {
+    color: yellow;
+}
+
+.status-closed {
+    color: lightblue;
+}
+
+.info {
+    font-size: 0.65em;
+    color: var(--text-color-3);
+}
+
+.info > i {
+    font-style: italic;
+    font-size: 0.65em;
 }

@@ -23,15 +23,15 @@ The list of all bugs/issues across all projects.
             <article class="bug">
                 <header>
                     <div>
-                        <h1>
-                            <i>#{{ bug.id }}</i>: {{ bug.title }} in {{ bug.project }}
+                        <h1 class="info">
+                            <i>#{{ bug.id }}</i> {{ bug.title }} in {{ bug.project }}
                         </h1>
                         <div class='details'>
-                            <p>Priority: {{ bug.priority }}</p>
-                            <p>Status: {{ bug.status }}</p>
+                            <p class="priority-{{ bug.priority }}">Priority: {{ bug.priority }}</p>
+                            <p class="status-{{ bug.status }}">Status: {{ bug.status }}</p>
                         </div>
                         
-                        <a href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                        <a class="edit-btn" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
                         <!-- Let's just gate this behind the Delete form on the Edit page
                             <a href="{{ url_for('bugtracker.delete', id=bug.id) }}">Delete</a>
                         -->
