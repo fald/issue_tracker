@@ -44,45 +44,42 @@
     <!-- If a search, have search results -->
     <!-- If results|length = 0, message -->
     <!-- If no search, just box and blank -->
-    {% if results %}
-        {% if results|length == 0 %}
-            <p class="apology">There are no search results for your query...</p>
-        {% else %}
-            {% for bug in results %}
+    {% if empty %}
+        <p class="apology">There are no search results for your query...</p>
+    {% elif results %}
+        {% for bug in results %}
                 <article class="bug">
-                    <header>
-                        <div>
-                            <h1>
-                                <i>#{{ bug.id }}</i>: {{ bug.title }} in {{ bug.project }}
-                            </h1>
-                            <div class='details'>
-                                <p>Priority: {{ bug.priority }}</p>
-                                <p>Status: {{ bug.status }}</p>
-                            </div>
-                            
-                            <a href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                <header>
+                    <div>
+                        <h1>
+                            <i>#{{ bug.id }}</i>: {{ bug.title }} in {{ bug.project }}
+                        </h1>
+                        <div class='details'>
+                            <p>Priority: {{ bug.priority }}</p>
+                            <p>Status: {{ bug.status }}</p>
                         </div>
-                    </header>
-                    <p class="body">
-                        {{ bug.body }}
-                    </p>
-                    <footer>
-                        <div>
-                            <p>Submitted by: {{ bug.creator }}</p>
-                            <p>on {{ bug.created }}</p>
-                            <p>Assigned to: {{ bug.target }}</p>
-                        </div>
-                        <div>
-                            <p>Last modified: {{ bug.last_modified }}</p>
-                        </div>
-                    </footer>
-                </article>
-                {% if not loop.last %}
-                    <hr />
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-
+                        
+                        <a href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                    </div>
+                </header>
+                <p class="body">
+                    {{ bug.body }}
+                </p>
+                <footer>
+                    <div>
+                        <p>Submitted by: {{ bug.creator }}</p>
+                        <p>on {{ bug.created }}</p>
+                        <p>Assigned to: {{ bug.target }}</p>
+                    </div>
+                    <div>
+                        <p>Last modified: {{ bug.last_modified }}</p>
+                    </div>
+                </footer>
+            </article>
+            {% if not loop.last %}
+                <hr />
+            {% endif %}
+        {% endfor %}
     {% else %}
         {{ request.args }}
     {% endif %}

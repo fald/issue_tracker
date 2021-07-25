@@ -70,6 +70,16 @@ def create():
 
 @bp.route('/search')
 def search():
+    if request.args:
+        results = get_db().execute(
+            'SELECT * FROM issue WHERE id < 0'
+        ).fetchall()
+
+        if len(results) == 0:
+            return render_template('/bugs/search.html', empty=True)
+        else:
+            return render_template('/bugs/search.html', results=results)
+
     return render_template('/bugs/search.html')
 
 
