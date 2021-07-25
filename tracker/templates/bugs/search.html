@@ -53,7 +53,8 @@
     <!-- { if results } -->
     <p class="result_info">
         {% if results %} Showing {{ results|length }} result(s)
-        {% else %} There were 0 results for your search term.
+        {% elif request.args %} There were 0 results for your search term.
+        {% else %}
         {% endif %}
     </p>
         {% for bug in results %}
