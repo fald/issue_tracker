@@ -73,17 +73,19 @@ def search():
     if request.args and request.args['search_term']: # account for bypassing search field with empty str
         # Current valid search params:
         #
-        # project_name
+        # project
         # creator 
         # target
         # body
         # title
-        # status
-        # priority
+        # status        <- Eh.
+        # priority      <- Eh. Save for 'better' search.
         #
         # For now, auto-sort by recent activity.
+        # Didn't quite understand why to use UNION vs OR, and couldn't replicate
+        # a duplicate selection with this, but have SELECT DISTINCT to make up for it.
         db = get_db()
-        query = f'''SELECT 
+        query = f'''SELECT DISTINCT
            i.id AS id,
            i.title,
            i.body,
@@ -98,9 +100,14 @@ def search():
         LEFT JOIN project p ON i.project_id = p.id 
         LEFT JOIN user u1 ON i.creator_id = u1.id 
         LEFT JOIN user u2 ON i.target_id = u2.id 
-        WHERE creator=? OR target=?
+        WHERE 
+            creator LIKE ? 
+            OR target LIKE ? 
+            OR project LIKE ?
+            OR body LIKE ?
+            OR title LIKE ?
         ORDER BY created DESC'''
-        params = ('fald', 'fald')
+        params = (f"%{request.args['search_term']}%",) * 5
 
         results = db.execute(
             query,
