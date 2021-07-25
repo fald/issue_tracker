@@ -45,9 +45,17 @@
     <!-- If a search, have search results -->
     <!-- If results|length = 0, message -->
     <!-- If no search, just box and blank -->
-    {% if empty %}
+    <!--
+    { if empty }
         <p class="apology">There are no search results for your query...</p>
-    {% elif results %}
+    { elif results }
+    -->
+    <!-- { if results } -->
+    <p class="result_info">
+        {% if results %} Showing {{ results|length }} result(s)
+        {% else %} There were 0 results for your search term.
+        {% endif %}
+    </p>
         {% for bug in results %}
                 <article class="bug">
                 <header>
@@ -81,9 +89,10 @@
                 <hr />
             {% endif %}
         {% endfor %}
-    {% else %}
-        {{ request.args }}
-    {% endif %}
+    
+    <!--{ else }
+        <p>{{ results }}</p>
+    { endif } -->
 
 {% endblock %}
 

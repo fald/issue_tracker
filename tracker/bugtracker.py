@@ -114,10 +114,11 @@ def search():
             params
         ).fetchall()
 
-        if len(results) == 0:
-            return render_template('/bugs/search.html', empty=True)
-        else:
-            return render_template('/bugs/search.html', results=results)
+        # This can probably be handled within the template.
+        # if len(results) == 0:
+        #     return render_template('/bugs/search.html', empty=True)
+        # else:
+        return render_template('/bugs/search.html', results=results)
 
     return render_template('/bugs/search.html')
 
