@@ -108,7 +108,7 @@ def get_issue(id):
     
     return issue
 
-
+# Probably just shoul've saved the main query to use elsewhere and to add WHERE clauses >>
 def get_all_issues():
     db = get_db()
     issues = db.execute(

@@ -70,9 +70,41 @@ def create():
 
 @bp.route('/search')
 def search():
-    if request.args:
-        results = get_db().execute(
-            'SELECT * FROM issue WHERE id < 0'
+    if request.args and request.args['search_term']: # account for bypassing search field with empty str
+        # Current valid search params:
+        #
+        # project_name
+        # creator 
+        # target
+        # body
+        # title
+        # status
+        # priority
+        #
+        # For now, auto-sort by recent activity.
+        db = get_db()
+        query = f'''SELECT 
+           i.id AS id,
+           i.title,
+           i.body,
+           i.status,
+           i.priority,
+           i.created,
+           i.last_modified,
+           p.name AS project,
+           u1.username AS creator,
+           u2.username AS target 
+        FROM issue i 
+        LEFT JOIN project p ON i.project_id = p.id 
+        LEFT JOIN user u1 ON i.creator_id = u1.id 
+        LEFT JOIN user u2 ON i.target_id = u2.id 
+        WHERE creator=? OR target=?
+        ORDER BY created DESC'''
+        params = ('fald', 'fald')
+
+        results = db.execute(
+            query,
+            params
         ).fetchall()
 
         if len(results) == 0:
