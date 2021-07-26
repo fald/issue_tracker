@@ -12,7 +12,7 @@ The list of all bugs/issues across all projects.
     </a>
     -->
 {% endblock %}
-
+<!-- TODO: tie In-progress status to assigned user -->
 {% block content %}
     {% if bugs|length < 1 %}
         <article class="empty">
@@ -24,13 +24,25 @@ The list of all bugs/issues across all projects.
             <article class="bug">
                 <header>
                     <div>
-                        <h1 class="info">
-                            <i>#{{ bug.id }}</i>: {{ bug.title }}
+                        <h1>
+                            <i class="info">#{{ bug.id }}</i> 
+                            <span class="title">{{ bug.title }}</span>
                             <br />
-                            <i>in {{ bug.project }}</i>                        </h1>
+                            <i class="info">{{ bug.project }}</i>                        </h1>
                         <div class='details'>
-                            <p class="priority-{{ bug.priority }}">Priority: {{ bug.priority }}</p>
-                            <p class="status-{{ bug.status }}">Status: {{ bug.status }}</p>
+                            <p class="priority-{{ bug.priority }}">
+                                <span class="info">Priority:</span> 
+                                {{ bug.priority }}
+                            </p>
+                            <p class="status-{{ bug.status }}">
+                                <!-- gross -->
+                                <span class="info">Status:</span>
+                                {% if bug.status == 'assigned' %}
+                                ipr
+                                {% else %}
+                                {{ bug.status }}
+                                {% endif %}
+                            </p>
                             <a class="edit-btn" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
                         </div>
                         <!-- Let's just gate this behind the Delete form on the Edit page
@@ -55,11 +67,11 @@ The list of all bugs/issues across all projects.
                         {% endif %}
                     </p>
                     <p class="date-info">
-                        <span class="label-info">Created:</span>
+                        <span class="info">Created:</span>
                         <span class="date">{{ bug.created }}</span>
                         {% if bug.last_modified != bug.created %}
                         <br />
-                        <span class="label-info">Last modified:</span>
+                        <span class="info">Last modified:</span>
                         <span class="date">{{ bug.last_modified }}</span>
                         {% endif %}
                     </p>

@@ -9,45 +9,18 @@
     --highlight-color-2: #b5bad0;
 }
 
-html {
+/* html {
     font-family: sans-serif;
     padding: 1rem;
     background: var(--bg-color-1);
-}
+} */
 
-body {
+/* body {
     max-width: 80%;
     margin: 0 auto;
     background: var(--bg-color-2);
     padding: 1rem;
-}
-
-nav {
-    background: var(--highlight-color-2);
-    display: flex;
-    align-items: center;
-    padding: 0 0.5rem;
-}
-
-nav h1 {
-    flex: auto;
-    margin: 0;
-    color: var(--text-color-2);
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li a {
-    display: block;
-    padding: 0.5rem;
-    text-decoration: none;
-    color: var(--text-color-2);
-}
+} */
 
 .flash {
     margin: 1em 0;
@@ -55,25 +28,28 @@ nav ul li a {
     background: var(--bg-color-1);
     border: 1px solid var(--text-color-3);
 }
-
-.content {
+.nav-item {
+    padding: 0 1rem;
+    display: block;
+}
+/* .content {
     padding: 0 1rem 1rem;
     display: flex;
     flex-direction: column;
-}
+} */
 
-.content > header {
+/* .content > header {
     border-bottom: 1px solid var(--highlight-color-2);
     color: var(--text-color-3);
     display: flex;
     align-items: flex-end;
-}
+} */
 
-.content > header h1 {
+/* .content > header h1 {
     flex: auto;
     margin: 1rem 0 0.25rem 0;
     padding: 1rem;
-}
+} */
 
 /*
 .bugs {
@@ -82,76 +58,72 @@ nav ul li a {
 }
 */
 
-.bugs {
+/* .bugs {
     margin: 1rem;
     padding: 1rem;
     display: flex;
     background-color: white;
     flex-direction: row;
     flex-wrap: wrap;
-}
+} */
 
-.bug {
+/* .bug {
     background-color: lightgray;
     width: 30%;
     border: 1px solid black;
     margin: 0.25rem;
-    padding: 0.5rem;
+    padding: 0.25rem;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* align-content: space-between; */
-}
-
-.bug > header {
-    /* display: flex;
-    flex-direction: row; */
-    font-size: 0.85em;
+    overflow: hidden;
+} */
+/* 
+.bug header {
     background-color: lightcoral;
-    width: 100%;
-}
+} */
+/* 
+.info {
+    font-size: 0.5em;
+    margin: 0;
+} */
+/* 
+.title {
+    color: var(--text-color-2);
+} */
 
-.bug > header > div {
-    /* flex: auto; */
-}
+/* .details {
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;    
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden; 
+}*/
 
-.bug > header h1 {
-    font-size: 1.5em;
-    margin-bottom: 0;
-}
-
-.details {
-    border: 1px solid white;
-    max-width: 100%;
-    /* display: flex; */
-}
-
-.details p, .details a {
+/* .details p, .details a {
     margin: 0.5rem;
     padding: 0.5rem;
-    /* align-items: flex-start; */
     text-decoration: none;
-    
+    display: block;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
-.info {
-    /* font size doesn't work here?? */
-    color: var(--text-color-3);
-}
 
 .info > i {
     font-style: italic;
-    font-size: 0.65em;
+    font-size: 0.5em;
 }
 
 .body {
     background-color: lightblue;
-    flex-basis: 50%;
+    flex-basis: 75%;
     justify-self: flex-start;
 }
 
 .bug footer {
+    border-top: 1px solid white;
     background-color: lightgreen;
 }
 
@@ -177,4 +149,4 @@ nav ul li a {
 
 .status-closed {
     color: lightblue;
-}
+} */
