@@ -41,14 +41,24 @@ The list of all bugs/issues across all projects.
                     {{ bug.body }}
                 </p>
                 <footer>
-                    <div>
-                        <p>Submitted by: {{ bug.creator }}</p>
-                        <p>on {{ bug.created }}</p>
-                        <p>Assigned to: {{ bug.target }}</p>
-                    </div>
-                    <div>
-                        <p>Last modified: {{ bug.last_modified }}</p>
-                    </div>
+                    <p class="user-info">
+                        <div class="label-info">Submitted by:</div> 
+                        <div class="user">{{ bug.creator }}</div>
+                        {% if bug.target %}
+                        <div class="label-info">Assigned to:</div>
+                        <div class="user">{{ bug.target }}</div>
+                        {% else %}
+                        <div class="note">Unassigned</p>
+                        {% endif %}
+                    </p>
+                    <p class="date-info">
+                        <div class="label-info">Created:</div>
+                        <div class="date">{{ bug.created }}</div>
+                        {% if bug.last_modified != bug.created %}
+                        <div class="label-info">Last modified:</div>
+                        <div class="date">{{ bug.last_modified }}</div>
+                        {% endif %}
+                    </p>
                 </footer>
             </article>
             <!--

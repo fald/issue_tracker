@@ -58,39 +58,52 @@
         {% else %}
         {% endif %}
     </p>
+        <div class="bugs">
         {% for bug in results %}
                 <article class="bug">
                 <header>
                     <div>
-                        <h1>
+                        <h1 class="info">
                             <i>#{{ bug.id }}</i>: {{ bug.title }} in {{ bug.project }}
                         </h1>
                         <div class='details'>
-                            <p>Priority: {{ bug.priority }}</p>
-                            <p>Status: {{ bug.status }}</p>
-                        </div>
-                        
-                        <a href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                            <p class="priority-{{ bug.priority }}">Priority: {{ bug.priority }}</p>
+                            <p class="status-{{ bug.status }}">Status: {{ bug.status }}</p>
+                            <a class="edit-btn" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                        </div>                        
                     </div>
                 </header>
                 <p class="body">
                     {{ bug.body }}
                 </p>
                 <footer>
-                    <div>
-                        <p>Submitted by: {{ bug.creator }}</p>
-                        <p>on {{ bug.created }}</p>
-                        <p>Assigned to: {{ bug.target }}</p>
-                    </div>
-                    <div>
-                        <p>Last modified: {{ bug.last_modified }}</p>
-                    </div>
+                    <p class="user-info">
+                        <div class="label-info">Submitted by:</div> 
+                        <div class="user">{{ bug.creator }}</div>
+                        {% if bug.target %}
+                        <div class="label-info">Assigned to:</div>
+                        <div class="user">{{ bug.target }}</div>
+                        {% else %}
+                        <div class="note">Unassigned</p>
+                        {% endif %}
+                    </p>
+                    <p class="date-info">
+                        <div class="label-info">Created:</div>
+                        <div class="date">{{ bug.created }}</div>
+                        {% if bug.last_modified != bug.created %}
+                        <div class="label-info">Last modified:</div>
+                        <div class="date">{{ bug.last_modified }}</div>
+                        {% endif %}
+                    </p>
                 </footer>
             </article>
+            <!--
             {% if not loop.last %}
                 <hr />
             {% endif %}
+            -->
         {% endfor %}
+        </div>
     
     <!--{ else }
         <p>{{ results }}</p>
