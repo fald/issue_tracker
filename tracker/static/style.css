@@ -22,13 +22,6 @@
     padding: 1rem;
 } */
 
-.flash {
-    margin: 1em 0;
-    padding: 1em;
-    background: var(--bg-color-1);
-    border: 1px solid var(--text-color-3);
-}
-
 .nav-item {
     padding: 0 1rem;
     display: block;

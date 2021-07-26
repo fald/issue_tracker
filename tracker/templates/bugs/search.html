@@ -38,8 +38,12 @@
         <label for="search_term">Search</label>
         TODO: Make this search functionality a little bit more complex.
         -->
-        <input name="search_term" id="search_term" required />
-        <input type="submit" value="Search" />
+        <div class="row">
+            <div class="form-group col-3">
+                <input class="form-control" name="search_term" id="search_term" required />
+                <button class="btn btn-primary btn-dark form-control" type="submit">Search</button>
+            </div>
+        </div>
     </form>
 
     <!-- If a search, have search results -->
