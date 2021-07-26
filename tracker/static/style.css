@@ -87,26 +87,33 @@ nav ul li a {
     padding: 1rem;
     display: flex;
     background-color: white;
+    flex-direction: row;
     flex-wrap: wrap;
 }
 
 .bug {
+    background-color: lightgray;
     width: 30%;
+    border: 1px solid black;
+    margin: 0.25rem;
+    padding: 0.5rem;
+
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
-    margin: 0.25em;
-    padding: 0.25rem;
+    justify-content: space-between;
+    /* align-content: space-between; */
 }
 
 .bug > header {
-    display: flex;
-    flex-direction: row;
+    /* display: flex;
+    flex-direction: row; */
     font-size: 0.85em;
+    background-color: lightcoral;
+    width: 100%;
 }
 
 .bug > header > div {
-    flex: auto;
+    /* flex: auto; */
 }
 
 .bug > header h1 {
@@ -117,15 +124,35 @@ nav ul li a {
 .details {
     border: 1px solid white;
     max-width: 100%;
-    display: flex;
+    /* display: flex; */
 }
 
 .details p, .details a {
     margin: 0.5rem;
     padding: 0.5rem;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     text-decoration: none;
     
+}
+
+.info {
+    /* font size doesn't work here?? */
+    color: var(--text-color-3);
+}
+
+.info > i {
+    font-style: italic;
+    font-size: 0.65em;
+}
+
+.body {
+    background-color: lightblue;
+    flex-basis: 50%;
+    justify-self: flex-start;
+}
+
+.bug footer {
+    background-color: lightgreen;
 }
 
 .priority-low {
@@ -150,14 +177,4 @@ nav ul li a {
 
 .status-closed {
     color: lightblue;
-}
-
-.info {
-    /* font size doesn't work here?? */
-    color: var(--text-color-3);
-}
-
-.info > i {
-    font-style: italic;
-    font-size: 0.65em;
 }

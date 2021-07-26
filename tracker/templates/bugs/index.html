@@ -25,8 +25,9 @@ The list of all bugs/issues across all projects.
                 <header>
                     <div>
                         <h1 class="info">
-                            <i>#{{ bug.id }}</i> {{ bug.title }} in {{ bug.project }}
-                        </h1>
+                            <i>#{{ bug.id }}</i>: {{ bug.title }}
+                            <br />
+                            <i>in {{ bug.project }}</i>                        </h1>
                         <div class='details'>
                             <p class="priority-{{ bug.priority }}">Priority: {{ bug.priority }}</p>
                             <p class="status-{{ bug.status }}">Status: {{ bug.status }}</p>
@@ -42,21 +43,24 @@ The list of all bugs/issues across all projects.
                 </p>
                 <footer>
                     <p class="user-info">
-                        <div class="label-info">Submitted by:</div> 
-                        <div class="user">{{ bug.creator }}</div>
+                        <span class="label-info">Submitted by:</span> 
+                        <span class="user">{{ bug.creator }}</span>
                         {% if bug.target %}
-                        <div class="label-info">Assigned to:</div>
-                        <div class="user">{{ bug.target }}</div>
+                        <br />
+                        <span class="label-info">Assigned to:</span>
+                        <span class="user">{{ bug.target }}</span>
                         {% else %}
-                        <div class="note">Unassigned</p>
+                        <br />
+                        <span class="note">Unassigned</span>
                         {% endif %}
                     </p>
                     <p class="date-info">
-                        <div class="label-info">Created:</div>
-                        <div class="date">{{ bug.created }}</div>
+                        <span class="label-info">Created:</span>
+                        <span class="date">{{ bug.created }}</span>
                         {% if bug.last_modified != bug.created %}
-                        <div class="label-info">Last modified:</div>
-                        <div class="date">{{ bug.last_modified }}</div>
+                        <br />
+                        <span class="label-info">Last modified:</span>
+                        <span class="date">{{ bug.last_modified }}</span>
                         {% endif %}
                     </p>
                 </footer>
