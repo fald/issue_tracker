@@ -51,6 +51,7 @@
     { elif results }
     -->
     <!-- { if results } -->
+    <!-- There's probably a better way to reuse the result output... -->
     <p class="result_info">
         {% if results %} Showing {{ results|length }} result(s)
         {% elif request.args %} There were 0 results for your search term.
