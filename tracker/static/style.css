@@ -28,10 +28,16 @@
     background: var(--bg-color-1);
     border: 1px solid var(--text-color-3);
 }
+
 .nav-item {
     padding: 0 1rem;
     display: block;
 }
+
+.navbar-brand {
+    padding: 0 1rem;
+}
+
 /* .content {
     padding: 0 1rem 1rem;
     display: flex;
