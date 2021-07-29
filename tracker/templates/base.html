@@ -7,13 +7,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content="{% block description %}{% endblock %}" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 
 
-<body>
+<body visibility>
     <header>
         <nav class="navbar navbar-dark bg-dark justify-content-between">
             <a class="navbar-brand">Issue Tracker</a>
