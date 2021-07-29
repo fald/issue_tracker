@@ -11,36 +11,75 @@
 
     <!-- project_id, project_name, bug_title, bug_body, creator_id, creator_name,
     target_id, target_name, status, priority, created_on, last_modified -->
-    <form method="POST">
-        <label for="project_name">Project</label>
-        <input name="project_name" id="project_name" value="{{ request.form.project_name or issue.project }}" required>
-        <label for="bug_title">Bug Title</label> <!-- It just occurred to me how silly a 'bug title' is. -->
-        <input name="bug_title" id="bug_title" value="{{ request.form.bug_title or issue.title }}" required>
-        <label for="bug_description">Description</label>
-        <textarea name="bug_description" id="bug_description" required>{{ request.form.bug_description or issue.body }}</textarea>
-        <label for="assignee">Assign To</label>
-        <input name="assignee" id="assignee" value="{{ request.form.assignee or issue.target }}"> <!-- Goddamnit -->
-        <label for="status">Status</label>
-        <select name="status" id="status">
-            <option disabled hidden selected>Status</option>
-            <option value="open">Open</option>
-            <option value="assigned">In Progress</option>
-            <option value="closed">Closed</option>
-        </select>
-        <label for="priority">Priority</label>
-        <select name="priority" id="priority">
-            <option disabled hidden selected>Priority</option>
-            <option value="low">Low</option>
-            <option value="med">Medium</option>
-            <option value="high">High</option>
-        </select>
-        <input type="submit" value="Update">
+    <form method="POST" class="col-6">
+        <div class="row mb-2">
+            <div class="form-group col">
+                <input class="form-control" name="project_name" id="project_name" placeholder="Project Name" value="{{ request.form.project_name or issue.project }}" required>
+            </div>
+            <div class="form-group col">
+                <input class="form-control" name="bug_title" id="bug_title" placeholder="Bug Headline" value="{{ request.form.bug_title or issue.title }}" required>
+            </div>
+        </div>
+
+        <div class="form-group mb-2">
+            <label for="bug_description">Description</label>
+            <textarea class="form-control" name="bug_description" id="bug_description" required>{{ request.form.bug_description or issue.body }}</textarea>
+        </div>
+
+        <div class="row">
+            <div class="form-group col">
+                <label for="creator_name">Added By</label>
+                <input class="form-control" name="creator_name" id="creator_name" value="{{ request.form.creator_name or issue.creator }}"> <!-- not required, has default -->
+            </div>
+            <div class="form-group col">
+                <label for="assignee">Assign To</label>
+                <input class="form-control" name="assignee" id="assignee" value="{{ request.form.assignee or issue.target }}">
+            </div>
+
+            <div class="form-group col">
+                <label for="priority">Priority</label>
+                <select class="form-control" name="priority" id="priority">
+                    <option disabled hidden selected>Choose</option>
+                    <option value="low">Low</option>
+                    <option value="med">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="status">Status</label>
+                <select class="form-control" name="status" id="status">
+                    <option disabled hidden selected>Choose</option>
+                    <option value="open">Open</option>
+                    <option value="assigned">In Progress</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+
+            <!-- <label for="status">Status</label>
+            <select name="status" id="status">
+                <option disabled hidden selected>Status</option>
+                <option value="open">Open</option>
+                <option value="assigned">In Progress</option>
+                <option value="closed">Closed</option>
+            </select>
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority">
+                <option disabled hidden selected>Priority</option>
+                <option value="low">Low</option>
+                <option value="med">Medium</option>
+                <option value="high">High</option>
+            </select> -->
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-dark mt-4">Update</button>
     </form>
 
     <hr />
 
-    <form method="POST" action="{{ url_for('bugtracker.delete', id=issue.id) }}">
-        <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+    <form class="mt-4" method="POST" action="{{ url_for('bugtracker.delete', id=issue.id) }}">
+        <button class="btn btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+            Delete
+        </button>
     </form>
 {% endblock %}
 
