@@ -129,16 +129,20 @@ def update(id):
 
     if request.method == "POST":
         error = None
-        # parameterize post elements
-        project = request.form['project_name'] or issue['project']
-        title = request.form['bug_title'] or issue['title']
-        body = request.form['bug_description'] or issue['body']
+        # # parameterize post elements
+        # project = request.form['project_name'] or issue['project']
+        # title = request.form['bug_title'] or issue['title']
+        # body = request.form['bug_description'] or issue['body']
         # This is done because of how I have the option selection.
         # Don't know how to show current val selected without javascript,
         # so gotta avoid keyerrors
         status = request.form.get('status', issue['status'])
         priority = request.form.get('priority', issue['priority'])
-        target = request.form['assignee'] # This one can feasibly just be removed.
+        target = request.form.get('assignee','') # This one can feasibly just be removed.
+        # Well, for the API access, I need to apply this ^ to the other fields
+        project = request.form.get('project_name', issue['project'])
+        title = request.form.get('bug_title', issue['title'])
+        body = request.form.get('bug_description', issue['body'])
 
         # check element values, emptiness, errors
         # Actually...just assume they're unchanged?
