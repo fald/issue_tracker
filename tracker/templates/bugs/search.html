@@ -61,63 +61,14 @@
     <!-- { if results } -->
     <!-- There's probably a better way to reuse the result output... -->
     <p class="result_info">
-        {% if results %} Showing {{ results|length }} result(s)
+        {% if results %} Showing {{ results|length }} {% if results|length == 1 %}result{% else %}results{% endif %} for <i>"{{ request.args.get('search_term') }}"</i>
         {% elif request.args %} There were 0 results for your search term.
         {% else %}
         {% endif %}
     </p>
-        <div class="bugs">
-        {% for bug in results %}
-                <article class="bug">
-                <header>
-                    <div>
-                        <h1 class="info">
-                            <i>#{{ bug.id }}</i>: {{ bug.title }}
-                            <i>in {{ bug.project }}</i>
-                        </h1>
-                        <div class='details'>
-                            <p class="priority-{{ bug.priority }}">Priority: {{ bug.priority }}</p>
-                            <p class="status-{{ bug.status }}">Status: {{ bug.status }}</p>
-                            <a class="edit-btn" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
-                        </div>                        
-                    </div>
-                </header>
-                <p class="body">
-                    {{ bug.body }}
-                </p>
-                <footer>
-                    <p class="user-info">
-                        <div class="label-info">Submitted by:</div> 
-                        <div class="user">{{ bug.creator }}</div>
-                        {% if bug.target %}
-                        <div class="label-info">Assigned to:</div>
-                        <div class="user">{{ bug.target }}</div>
-                        {% else %}
-                        <div class="note">Unassigned</p>
-                        {% endif %}
-                    </p>
-                    <p class="date-info">
-                        <div class="label-info">Created:</div>
-                        <div class="date">{{ bug.created }}</div>
-                        {% if bug.last_modified != bug.created %}
-                        <div class="label-info">Last modified:</div>
-                        <div class="date">{{ bug.last_modified }}</div>
-                        {% endif %}
-                    </p>
-                </footer>
-            </article>
-            <!--
-            {% if not loop.last %}
-                <hr />
-            {% endif %}
-            -->
-        {% endfor %}
-        </div>
-    
-    <!--{ else }
-        <p>{{ results }}</p>
-    { endif } -->
-
+    {% with bugs=results %} <!-- Ew. -->
+        {% include 'bug_display.html' %}
+    {% endwith %}
 {% endblock %}
 
 {% block footer %}

@@ -1,0 +1,85 @@
+<div class="bugs row">
+    {% for bug in bugs %}
+        <article class="bug col-4 mb-3 h-100">
+            <header class="border bg-light p-2">
+                <div class="identification">
+                    <i class="h6 text-muted info">#{{ bug.id }}</i> 
+                    <span class="h3 title">{{ bug.title }}</span>
+                    <br />
+                    <i class="h6 info text-muted">{{ bug.project }}</i>
+                </div>
+                <div class='details'>
+                    <div class="row">
+                        <div class="col">
+                            <!-- <p class="priority-{{ bug.priority }}"> -->
+                            <span class="text-muted h6 align-middle">Priority:</span> 
+                            <!-- I feel like the informercial guy who just drops a bowl of cheetos because he doesn't know how bowls work - there needs to be a simpler way. -->
+                            <span class="align-middle badge bg-{% if bug.priority == 'low' %}success{% elif bug.priority == 'high' %}danger{% else %}warning{% endif %}">{{ bug.priority }}</span>
+                            <!-- </p> -->
+                        </div>
+                        <div class="col">
+                            <!-- <p class="status-{{ bug.status }}"> -->
+                            <!-- gross -->
+                            <span class="align-middle text-muted h6">Status:</span>
+                            <span class="align-middle badge bg-{% if bug.status == 'open' %}primary{% elif bug.status=='closed' %}secondary{% else %}info{% endif %}">
+                            {% if bug.status == 'assigned' %}
+                            ipr
+                            {% else %}
+                            {{ bug.status }}
+                            {% endif %}
+                            </span>
+                            <!-- </p> -->
+                        </div>
+                        <div class="col">
+                            <a class="align-middle edit-btn btn btn-dark btn-small" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Let's just gate this behind the Delete form on the Edit page
+                    <a href="{{ url_for('bugtracker.delete', id=bug.id) }}">Delete</a>
+                    -->
+            </header>
+
+            <section class="body border bg-light p-2 lead">
+                <div class="">
+                    {{ bug.body }}
+                </div> 
+            </section>
+
+            <footer class="p-2 border bg-light">
+                <!-- <div class="row"> -->
+                <div class="user-info text-muted row gy-4">
+                    <div class="col">
+                        {% if bug.target %}
+                            <span class="label-info h6">Assigned to:</span>
+                            <span class="user h5">{{ bug.target }}</span>
+                        {% else %}
+                            <span class="note h6 col">Unassigned</span>
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <span class="label-info h6">Submitted by:</span> 
+                        <span class="user h5">{{ bug.creator }}</span>
+                    </div>
+                </div>
+                <!-- </div> -->
+                <div class="row text-muted">
+                    <div class="date-info">
+                        {% if bug.last_modified != bug.created %}
+                        <span class="info h6">Last modified:</span>
+                        <span class="date h6">{{ bug.last_modified }}</span>
+                        <br />
+                        {% endif %}
+                        <span class="info h6 s">Created:</span>
+                        <span class="date h6 s">{{ bug.created }}</span>                        
+                    </div>
+                </div>
+            </footer>
+        </article>
+        <!--
+        {% if not loop.last %}
+            <hr />
+        {% endif %}
+        -->
+    {% endfor %}
+</div>
