@@ -1,5 +1,5 @@
-:root {
-    /* color scheme stuff - I still suck at colors though. */
+/* :root {
+    color scheme stuff - I still suck at colors though.
     --bg-color-1: #e0e0e2;
     --bg-color-2: #7389ae;
     --text-color-1: #b1d9d5;
@@ -7,7 +7,7 @@
     --text-color-3: #333;
     --highlight-color-1: #81d2c7;
     --highlight-color-2: #b5bad0;
-}
+} */
 
 /* html {
     font-family: sans-serif;
@@ -149,3 +149,16 @@
 .status-closed {
     color: lightblue;
 } */
+
+/* Not happy with the CSS in general - but its not something I should prioritize right now. */
+.vis0 {
+    border: 1px solid black;
+}
+
+.vis1 {
+    border: 1px solid lightgray;
+}
+
+.vis2 {
+    border: 1px solid darkgrey;
+}

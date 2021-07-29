@@ -19,61 +19,72 @@ The list of all bugs/issues across all projects.
             <p>There are no bugs being tracked right now.</p>
         </article>
     {% else %}
-    <div class="bugs">
+    <div class="bugs row vis0">
         {% for bug in bugs %}
-            <article class="bug">
+            <article class="bug col-4 vis1">
                 <header>
-                    <div>
-                        <h1>
-                            <i class="info">#{{ bug.id }}</i> 
-                            <span class="title">{{ bug.title }}</span>
-                            <br />
-                            <i class="info">{{ bug.project }}</i>                        </h1>
-                        <div class='details'>
-                            <p class="priority-{{ bug.priority }}">
-                                <span class="info">Priority:</span> 
-                                {{ bug.priority }}
-                            </p>
-                            <p class="status-{{ bug.status }}">
-                                <!-- gross -->
-                                <span class="info">Status:</span>
-                                {% if bug.status == 'assigned' %}
-                                ipr
-                                {% else %}
-                                {{ bug.status }}
-                                {% endif %}
-                            </p>
-                            <a class="edit-btn" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
-                        </div>
-                        <!-- Let's just gate this behind the Delete form on the Edit page
-                            <a href="{{ url_for('bugtracker.delete', id=bug.id) }}">Delete</a>
-                        -->
+                    <div class="identification vis2">
+                        <i class="h6 text-muted info">#{{ bug.id }}</i> 
+                        <span class="h3 title">{{ bug.title }}</span>
+                        <i class="h6 info text-muted">in {{ bug.project }}</i>                        </h1>
                     </div>
+                    <div class='details align-middle vis2'>
+                        <div class="row red">
+                            <div class="col">
+                                <p class="priority-{{ bug.priority }}">
+                                    <span class="text-muted h6">Priority:</span> 
+                                    <span>{{ bug.priority }}</span>
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="status-{{ bug.status }}">
+                                    <!-- gross -->
+                                    <span class="text-muted h6">Status:</span>
+                                    <span>
+                                    {% if bug.status == 'assigned' %}
+                                    ipr
+                                    {% else %}
+                                    {{ bug.status }}
+                                    {% endif %}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col">
+                                <a class="edit-btn btn btn-dark btn-small" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Let's just gate this behind the Delete form on the Edit page
+                        <a href="{{ url_for('bugtracker.delete', id=bug.id) }}">Delete</a>
+                        -->
                 </header>
-                <p class="body">
-                    {{ bug.body }}
-                </p>
+
+                <section class="body">
+                    <div class="">
+                        {{ bug.body }}
+                    </div> 
+                </section>
+
                 <footer>
-                    <p class="user-info">
-                        <span class="label-info">Submitted by:</span> 
-                        <span class="user">{{ bug.creator }}</span>
+                    <p class="user-info text-muted">
                         {% if bug.target %}
-                        <br />
-                        <span class="label-info">Assigned to:</span>
-                        <span class="user">{{ bug.target }}</span>
+                        <span class="label-info h6">Assigned to:</span>
+                        <span class="user h5">{{ bug.target }}</span>
                         {% else %}
-                        <br />
-                        <span class="note">Unassigned</span>
+                        <span class="note h6">Unassigned</span>
                         {% endif %}
+                        <br />
+                        <span class="label-info h6">Submitted by:</span> 
+                        <span class="user h5">{{ bug.creator }}</span>
                     </p>
                     <p class="date-info">
-                        <span class="info">Created:</span>
-                        <span class="date">{{ bug.created }}</span>
                         {% if bug.last_modified != bug.created %}
-                        <br />
                         <span class="info">Last modified:</span>
                         <span class="date">{{ bug.last_modified }}</span>
+                        <br />
                         {% endif %}
+                        <span class="info">Created:</span>
+                        <span class="date">{{ bug.created }}</span>                        
                     </p>
                 </footer>
             </article>
