@@ -23,34 +23,35 @@ The list of all bugs/issues across all projects.
         {% for bug in bugs %}
             <article class="bug col-4 vis1">
                 <header>
-                    <div class="identification vis2">
+                    <div class="identification">
                         <i class="h6 text-muted info">#{{ bug.id }}</i> 
                         <span class="h3 title">{{ bug.title }}</span>
-                        <i class="h6 info text-muted">in {{ bug.project }}</i>                        </h1>
+                        <br />
+                        <i class="h6 info text-muted">{{ bug.project }}</i>
                     </div>
-                    <div class='details align-middle vis2'>
-                        <div class="row red">
+                    <div class='details'>
+                        <div class="row">
                             <div class="col">
-                                <p class="priority-{{ bug.priority }}">
-                                    <span class="text-muted h6">Priority:</span> 
-                                    <span>{{ bug.priority }}</span>
-                                </p>
+                                <!-- <p class="priority-{{ bug.priority }}"> -->
+                                <span class="text-muted h6 align-middle">Priority:</span> 
+                                <span class="align-middle">{{ bug.priority }}</span>
+                                <!-- </p> -->
                             </div>
                             <div class="col">
-                                <p class="status-{{ bug.status }}">
-                                    <!-- gross -->
-                                    <span class="text-muted h6">Status:</span>
-                                    <span>
-                                    {% if bug.status == 'assigned' %}
-                                    ipr
-                                    {% else %}
-                                    {{ bug.status }}
-                                    {% endif %}
-                                    </span>
-                                </p>
+                                <!-- <p class="status-{{ bug.status }}"> -->
+                                <!-- gross -->
+                                <span class="align-middle text-muted h6">Status:</span>
+                                <span class="align-middle">
+                                {% if bug.status == 'assigned' %}
+                                ipr
+                                {% else %}
+                                {{ bug.status }}
+                                {% endif %}
+                                </span>
+                                <!-- </p> -->
                             </div>
                             <div class="col">
-                                <a class="edit-btn btn btn-dark btn-small" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
+                                <a class="align-middle edit-btn btn btn-dark btn-small" href="{{ url_for('bugtracker.update', id=bug.id) }}">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -66,26 +67,33 @@ The list of all bugs/issues across all projects.
                 </section>
 
                 <footer>
-                    <p class="user-info text-muted">
-                        {% if bug.target %}
-                        <span class="label-info h6">Assigned to:</span>
-                        <span class="user h5">{{ bug.target }}</span>
-                        {% else %}
-                        <span class="note h6">Unassigned</span>
-                        {% endif %}
-                        <br />
-                        <span class="label-info h6">Submitted by:</span> 
-                        <span class="user h5">{{ bug.creator }}</span>
-                    </p>
-                    <p class="date-info">
-                        {% if bug.last_modified != bug.created %}
-                        <span class="info">Last modified:</span>
-                        <span class="date">{{ bug.last_modified }}</span>
-                        <br />
-                        {% endif %}
-                        <span class="info">Created:</span>
-                        <span class="date">{{ bug.created }}</span>                        
-                    </p>
+                    <!-- <div class="row"> -->
+                    <div class="user-info text-muted row">
+                        <div class="col">
+                            {% if bug.target %}
+                                <span class="label-info h6">Assigned to:</span>
+                                <span class="user h5">{{ bug.target }}</span>
+                            {% else %}
+                                <span class="note h6 col">Unassigned</span>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <span class="label-info h6">Submitted by:</span> 
+                            <span class="user h5">{{ bug.creator }}</span>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <div class="row">
+                        <p class="date-info">
+                            {% if bug.last_modified != bug.created %}
+                            <span class="info">Last modified:</span>
+                            <span class="date">{{ bug.last_modified }}</span>
+                            <br />
+                            {% endif %}
+                            <span class="info">Created:</span>
+                            <span class="date">{{ bug.created }}</span>                        
+                        </p>
+                    </div>
                 </footer>
             </article>
             <!--
