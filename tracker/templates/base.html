@@ -39,7 +39,7 @@
     </header>
 
     <article class="content container">
-        <header>{% block header %}{% endblock %}</header>
+        <header class="py-4">{% block header %}{% endblock %}</header>
         
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">{{ message }}</div>

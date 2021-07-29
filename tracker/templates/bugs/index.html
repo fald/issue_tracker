@@ -19,10 +19,11 @@ The list of all bugs/issues across all projects.
             <p>There are no bugs being tracked right now.</p>
         </article>
     {% else %}
-    <div class="bugs row vis0">
+    <div class="container">
+    <div class="bugs row row-eq-height">
         {% for bug in bugs %}
-            <article class="bug col-4 vis1">
-                <header>
+            <article class="bug col-4 mb-3 h-100">
+                <header class="border bg-light p-2">
                     <div class="identification">
                         <i class="h6 text-muted info">#{{ bug.id }}</i> 
                         <span class="h3 title">{{ bug.title }}</span>
@@ -34,14 +35,15 @@ The list of all bugs/issues across all projects.
                             <div class="col">
                                 <!-- <p class="priority-{{ bug.priority }}"> -->
                                 <span class="text-muted h6 align-middle">Priority:</span> 
-                                <span class="align-middle">{{ bug.priority }}</span>
+                                <!-- I feel like the informercial guy who just drops a bowl of cheetos because he doesn't know how bowls work - there needs to be a simpler way. -->
+                                <span class="align-middle badge bg-{% if bug.priority == 'low' %}success{% elif bug.priority == 'high' %}danger{% else %}warning{% endif %}">{{ bug.priority }}</span>
                                 <!-- </p> -->
                             </div>
                             <div class="col">
                                 <!-- <p class="status-{{ bug.status }}"> -->
                                 <!-- gross -->
                                 <span class="align-middle text-muted h6">Status:</span>
-                                <span class="align-middle">
+                                <span class="align-middle badge bg-{% if bug.status == 'open' %}primary{% elif bug.status=='closed' %}secondary{% else %}info{% endif %}">
                                 {% if bug.status == 'assigned' %}
                                 ipr
                                 {% else %}
@@ -60,15 +62,15 @@ The list of all bugs/issues across all projects.
                         -->
                 </header>
 
-                <section class="body">
+                <section class="body border bg-light p-2">
                     <div class="">
                         {{ bug.body }}
                     </div> 
                 </section>
 
-                <footer>
+                <footer class="p-2 border bg-light">
                     <!-- <div class="row"> -->
-                    <div class="user-info text-muted row">
+                    <div class="user-info text-muted row gy-4">
                         <div class="col">
                             {% if bug.target %}
                                 <span class="label-info h6">Assigned to:</span>
@@ -83,16 +85,16 @@ The list of all bugs/issues across all projects.
                         </div>
                     </div>
                     <!-- </div> -->
-                    <div class="row">
-                        <p class="date-info">
+                    <div class="row text-muted">
+                        <div class="date-info">
                             {% if bug.last_modified != bug.created %}
-                            <span class="info">Last modified:</span>
-                            <span class="date">{{ bug.last_modified }}</span>
+                            <span class="info h6">Last modified:</span>
+                            <span class="date h6">{{ bug.last_modified }}</span>
                             <br />
                             {% endif %}
-                            <span class="info">Created:</span>
-                            <span class="date">{{ bug.created }}</span>                        
-                        </p>
+                            <span class="info h6 s">Created:</span>
+                            <span class="date h6 s">{{ bug.created }}</span>                        
+                        </div>
                     </div>
                 </footer>
             </article>
@@ -102,6 +104,7 @@ The list of all bugs/issues across all projects.
             {% endif %}
             -->
         {% endfor %}
+    </div>
     </div>
     {% endif %}
 {% endblock %}

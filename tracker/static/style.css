@@ -150,15 +150,5 @@
     color: lightblue;
 } */
 
-/* Not happy with the CSS in general - but its not something I should prioritize right now. */
-.vis0 {
-    border: 1px solid black;
-}
-
-.vis1 {
-    border: 1px solid lightgray;
-}
-
-.vis2 {
-    border: 1px solid darkgrey;
-}
+/* Not happy with the CSS in general - but its not something I should prioritize right now. 
+Ugh, uneven box heights, especially. */
