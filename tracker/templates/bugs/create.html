@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST">
+    <form method="POST" class="col-6">
         <!-- project_id, project_name, bug_title, bug_body, creator_id, creator_name,
             target_id, target_name, status, priority, created_on, last_modified 
         -->
-        <div class="row">
+        <div class="row mb-2">
             <div class="form-group col">
                 <input class="form-control" name="project_name" id="project_name" placeholder="Project Name" value="{{ request.form.project_name }}" required>
             </div>
@@ -21,10 +21,12 @@
                 <input class="form-control" name="bug_title" id="bug_title" placeholder="Bug Headline" value="{{ request.form.bug_title }}" required>
             </div>
         </div>
-        <div class="form-group">
+
+        <div class="form-group mb-2">
             <label for="bug_description">Description</label>
             <textarea class="form-control" name="bug_description" id="bug_description" required>{{ request.form.bug_description }}</textarea>
         </div>
+
         <div class="row">
             <div class="form-group col">
                 <label for="creator_name">Added By</label>
@@ -55,7 +57,8 @@
                 </select>
             </div>
         </div>
-        <button class="btn btn-primary btn-dark" type="submit">Create</button>
+        
+        <button class="btn btn-primary btn-dark mt-4" type="submit">Create</button>
     </form>
 {% endblock %}
 
