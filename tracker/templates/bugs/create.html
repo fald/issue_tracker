@@ -13,6 +13,10 @@
         <!-- project_id, project_name, bug_title, bug_body, creator_id, creator_name,
             target_id, target_name, status, priority, created_on, last_modified 
         -->
+        <!-- Unfortunately, can't really template this form neatly.
+            The edit form is slightly different with its values, and it's much messier to
+            deal with that, so separate (but similar) forms it is.
+        -->
         <div class="row mb-2">
             <div class="form-group col">
                 <input class="form-control" name="project_name" id="project_name" placeholder="Project Name" value="{{ request.form.project_name }}" required>
