@@ -36,7 +36,7 @@ Issue Tracker is a Flask-based web app made to track issues across multiple proj
 ## Installation
 
 
-# Usage
+## Usage
 
 
 ## Notes
