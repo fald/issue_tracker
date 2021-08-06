@@ -24,13 +24,13 @@ def index():
 def create():
     if request.method == 'POST':
         error = None
-        project_name = request.form['project_name']
-        bug_title = request.form['bug_title']
-        bug_description = request.form['bug_description']
-        creator_name = request.form['creator_name']
-        assignee = request.form['assignee']
-        status = request.form['status']
-        priority = request.form['priority']
+        project_name = request.form.get('project_name', None)
+        bug_title = request.form.get('bug_title', None)
+        bug_description = request.form.get('bug_description', None)
+        creator_name = request.form.get('creator_name', 'fald')
+        assignee = request.form.get('assignee', 'fald')
+        status = request.form.get('status', 'open')
+        priority = request.form.get('priority', 'low')
 
         if not project_name:
             error = "You need to attach this issue to a project."
