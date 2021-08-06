@@ -24,9 +24,9 @@ def index():
 def create():
     if request.method == 'POST':
         error = None
-        project_name = request.form['project_name']     
+        project_name = request.form['project_name']
         bug_title = request.form['bug_title']
-        bug_description = request.form['bug_description']   
+        bug_description = request.form['bug_description']
         creator_name = request.form['creator_name']
         assignee = request.form['assignee']
         status = request.form['status']
