@@ -9,9 +9,9 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'tracker.sqlite'),
     )
 
-    if test_config: # is None:
+    # if test_config: # is None:
         # app.config.from_pyfile('config.py', silent=True)
-        app.config.from_mapping(test_config)
+    app.config.from_mapping(test_config)
     # else:
 
     try:
